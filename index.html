@@ -2,24 +2,1417 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Centro Pachamama – Benji</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Tailwind CSS -->
+    <title>Centro de Estudio Pachamama - Preparación para Benji</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <!-- React -->
-    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
-    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
-    <!-- Babel -->
-    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
-    <!-- Lucide Icons -->
-    <script src="https://unpkg.com/lucide-react@0.263.1/dist/lucide-react.js"></script>
-    <!-- Your App -->
-    <script type="text/babel" src="App.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+        * {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .floating-element {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .floating-element:nth-child(2n) {
+            animation-delay: -2s;
+        }
+
+        .floating-element:nth-child(3n) {
+            animation-delay: -4s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            33% { transform: translateY(-20px) rotate(1deg); }
+            66% { transform: translateY(-10px) rotate(-1deg); }
+        }
+
+        .achievement-notification {
+            animation: slideInRight 0.5s ease-out, slideOutRight 0.5s ease-in 3s;
+        }
+
+        @keyframes slideInRight {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        @keyframes slideOutRight {
+            from { transform: translateX(0); opacity: 1; }
+            to { transform: translateX(100%); opacity: 0; }
+        }
+
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .earth-gradient {
+            background: linear-gradient(135deg, #4CAF50 0%, #2E7D32 100%);
+        }
+
+        .chat-message {
+            animation: fadeInUp 0.3s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .progress-ring {
+            transform: rotate(-90deg);
+        }
+
+        .progress-ring-circle {
+            stroke-dasharray: 283;
+            stroke-dashoffset: 283;
+            transition: stroke-dashoffset 0.5s ease-in-out;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        }
+
+        .pulse-button {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(59, 130, 246, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0); }
+        }
+
+        .welcome-banner {
+            background: linear-gradient(45deg, #667eea, #764ba2, #667eea);
+            background-size: 400% 400%;
+            animation: gradientShift 4s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+    </style>
 </head>
 <body class="min-h-screen">
-    <div id="root"></div>
-    <script type="text/babel">
-        ReactDOM.render(<PachamamaCenter />, document.getElementById('root'));
+    <!-- Floating Elements Background -->
+    <div class="fixed inset-0 pointer-events-none z-0">
+        <div class="floating-element absolute top-20 left-10 text-green-300 opacity-20">
+            <i class="fas fa-leaf text-4xl"></i>
+        </div>
+        <div class="floating-element absolute top-40 right-20 text-blue-300 opacity-20">
+            <i class="fas fa-globe text-3xl"></i>
+        </div>
+        <div class="floating-element absolute bottom-40 left-20 text-purple-300 opacity-20">
+            <i class="fas fa-brain text-3xl"></i>
+        </div>
+        <div class="floating-element absolute bottom-20 right-10 text-yellow-300 opacity-20">
+            <i class="fas fa-star text-4xl"></i>
+        </div>
+        <div class="floating-element absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-indigo-300 opacity-10">
+            <i class="fas fa-seedling text-6xl"></i>
+        </div>
+    </div>
+
+    <!-- Navigation Bar -->
+    <nav class="gradient-bg text-white p-4 relative z-10 shadow-lg">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="flex items-center space-x-4">
+                <i class="fas fa-seedling text-2xl"></i>
+                <h1 class="text-xl font-bold">Centro Pachamama - Benji</h1>
+                <div class="hidden md:block bg-green-500 px-3 py-1 rounded-full text-xs font-semibold">
+                    ACCESO LIBRE ✓
+                </div>
+            </div>
+            <div class="flex items-center space-x-6">
+                <div class="flex items-center space-x-2 bg-white bg-opacity-20 px-3 py-1 rounded-full">
+                    <i class="fas fa-coins text-yellow-300"></i>
+                    <span id="totalPoints" class="font-semibold">0</span>
+                </div>
+                <div class="flex items-center space-x-2 bg-white bg-opacity-20 px-3 py-1 rounded-full">
+                    <i class="fas fa-fire text-orange-400"></i>
+                    <span id="dailyStreak" class="font-semibold">0</span>
+                </div>
+                <div class="flex items-center space-x-2 bg-white bg-opacity-20 px-3 py-1 rounded-full">
+                    <i class="fas fa-chart-line text-green-300"></i>
+                    <span id="progressPercent" class="font-semibold">0%</span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content Container -->
+    <div class="max-w-7xl mx-auto p-6 relative z-10">
+        <!-- AI Assistant Button -->
+        <button id="aiAssistantBtn" class="fixed bottom-6 right-6 bg-purple-600 hover:bg-purple-700 text-white p-4 rounded-full shadow-lg transition-all duration-300 z-50 pulse-button">
+            <i class="fas fa-robot text-xl"></i>
+        </button>
+
+        <!-- Home Section -->
+        <div id="homeSection" class="section">
+            <!-- Welcome Banner -->
+            <div class="welcome-banner text-white p-8 rounded-xl shadow-lg mb-8 text-center">
+                <h2 class="text-4xl font-bold mb-4">¡Bienvenido Benji!</h2>
+                <p class="text-xl mb-2">Tu centro de estudios personalizado está listo</p>
+                <p id="motivationalQuote" class="text-lg italic opacity-90"></p>
+                <div class="mt-4 bg-white bg-opacity-20 inline-block px-4 py-2 rounded-full">
+                    <span class="text-sm font-semibold">✨ Sin restricciones - Estudia cuando quieras ✨</span>
+                </div>
+            </div>
+
+            <!-- Progress Overview -->
+            <div class="grid md:grid-cols-3 gap-6 mb-8">
+                <div class="bg-white rounded-xl shadow-lg p-6 text-center">
+                    <div class="relative w-32 h-32 mx-auto mb-4">
+                        <svg class="progress-ring w-32 h-32">
+                            <circle class="progress-ring-circle" cx="64" cy="64" r="45" stroke="#e5e7eb" stroke-width="8" fill="none"></circle>
+                            <circle id="progressCircle" class="progress-ring-circle" cx="64" cy="64" r="45" stroke="#10b981" stroke-width="8" fill="none"></circle>
+                        </svg>
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <span id="progressText" class="text-2xl font-bold text-gray-800">0%</span>
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-800">Progreso General</h3>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-lg p-6">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-4 flex items-center">
+                        <i class="fas fa-trophy text-yellow-500 mr-2"></i>
+                        Logros Recientes
+                    </h3>
+                    <div id="achievementsList" class="space-y-2 max-h-40 overflow-y-auto">
+                        <p class="text-gray-500 text-sm">Completa actividades para desbloquear logros</p>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-lg p-6">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-4 flex items-center">
+                        <i class="fas fa-clock text-blue-500 mr-2"></i>
+                        Cronómetro Pomodoro
+                    </h3>
+                    <div class="text-center">
+                        <div id="timerDisplay" class="text-3xl font-bold text-gray-800 mb-4">25:00</div>
+                        <div class="flex justify-center space-x-2">
+                            <button id="startTimer" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg transition-all">
+                                <i class="fas fa-play"></i>
+                            </button>
+                            <button id="pauseTimer" class="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-lg transition-all">
+                                <i class="fas fa-pause"></i>
+                            </button>
+                            <button id="resetTimer" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg transition-all">
+                                <i class="fas fa-redo"></i>
+                            </button>
+                        </div>
+                        <p id="timerMode" class="text-sm text-gray-600 mt-2">Modo: Estudio</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Subject Navigation -->
+            <div class="grid md:grid-cols-3 gap-6 mb-8">
+                <button onclick="showSection('math')" class="earth-gradient text-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105">
+                    <i class="fas fa-calculator text-4xl mb-4"></i>
+                    <h3 class="text-2xl font-semibold mb-2">Matemáticas</h3>
+                    <p>Problemas ecológicos y cálculos</p>
+                    <div class="mt-4 bg-white bg-opacity-20 px-3 py-1 rounded-full text-sm">
+                        ¡Empieza ahora!
+                    </div>
+                </button>
+
+                <button onclick="showSection('language')" class="bg-blue-600 hover:bg-blue-700 text-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105">
+                    <i class="fas fa-book-open text-4xl mb-4"></i>
+                    <h3 class="text-2xl font-semibold mb-2">Lengua</h3>
+                    <p>Comprensión lectora y escritura</p>
+                    <div class="mt-4 bg-white bg-opacity-20 px-3 py-1 rounded-full text-sm">
+                        ¡Empieza ahora!
+                    </div>
+                </button>
+
+                <button onclick="showSection('english')" class="bg-purple-600 hover:bg-purple-700 text-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105">
+                    <i class="fas fa-globe text-4xl mb-4"></i>
+                    <h3 class="text-2xl font-semibold mb-2">Inglés</h3>
+                    <p>Vocabulario ambiental</p>
+                    <div class="mt-4 bg-white bg-opacity-20 px-3 py-1 rounded-full text-sm">
+                        ¡Empieza ahora!
+                    </div>
+                </button>
+            </div>
+
+            <!-- Quick Access Features -->
+            <div class="grid md:grid-cols-2 gap-6 mb-8">
+                <!-- Quick Notes -->
+                <div class="bg-white rounded-xl shadow-lg p-6">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-4 flex items-center">
+                        <i class="fas fa-sticky-note text-yellow-500 mr-2"></i>
+                        Notas Rápidas
+                    </h3>
+                    <textarea id="quickNotes" rows="4" class="w-full p-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="Escribe tus ideas, conceptos importantes, o recordatorios aquí..."></textarea>
+                    <button onclick="saveNotes()" class="mt-3 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-all">
+                        <i class="fas fa-save mr-2"></i>
+                        Guardar Notas
+                    </button>
+                </div>
+
+                <!-- Quick Stats -->
+                <div class="bg-white rounded-xl shadow-lg p-6">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-4 flex items-center">
+                        <i class="fas fa-chart-bar text-green-500 mr-2"></i>
+                        Estadísticas de Hoy
+                    </h3>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="text-center">
+                            <div class="text-2xl font-bold text-blue-600" id="todayPoints">0</div>
+                            <p class="text-sm text-gray-600">Puntos Hoy</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-2xl font-bold text-green-600" id="todayActivities">0</div>
+                            <p class="text-sm text-gray-600">Actividades</p>
+                        </div>
+                    </div>
+                    <div class="mt-4 p-3 bg-gray-50 rounded-lg text-center">
+                        <p class="text-sm text-gray-600">Tiempo total de estudio hoy:</p>
+                        <p class="font-semibold" id="todayStudyTime">0 min</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Math Section -->
+        <div id="mathSection" class="section hidden">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-3xl font-bold text-gray-800">
+                    <i class="fas fa-calculator text-green-600 mr-3"></i>
+                    Misión Matemática
+                </h2>
+                <button onclick="showSection('home')" class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-lg transition-all">
+                    <i class="fas fa-home mr-2"></i>
+                    Inicio
+                </button>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-6">
+                <!-- Quiz Section -->
+                <div class="bg-white rounded-xl shadow-lg p-6">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-4">
+                        <i class="fas fa-question-circle text-blue-600 mr-2"></i>
+                        Quiz Matemático Ecológico
+                    </h3>
+                    <div id="mathQuiz">
+                        <div id="mathQuestion" class="bg-gray-50 p-4 rounded-lg mb-4"></div>
+                        <div id="mathOptions" class="space-y-2 mb-4"></div>
+                        <button id="submitMathAnswer" class="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg w-full transition-all">
+                            Responder
+                        </button>
+                        <div id="mathResult" class="mt-4 p-4 rounded-lg hidden"></div>
+                    </div>
+                    <div class="mt-4 text-center">
+                        <p class="text-sm text-gray-600">Pregunta <span id="currentQuestion">1</span> de 5</p>
+                        <div class="w-full bg-gray-200 rounded-full h-2 mt-2">
+                            <div id="quizProgress" class="bg-green-600 h-2 rounded-full transition-all duration-300" style="width: 20%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Resources and Stats -->
+                <div class="space-y-6">
+                    <div class="bg-white rounded-xl shadow-lg p-6">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-4">
+                            <i class="fas fa-chart-bar text-purple-600 mr-2"></i>
+                            Estadísticas
+                        </h3>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="text-center p-4 bg-green-50 rounded-lg">
+                                <div id="mathCorrect" class="text-3xl font-bold text-green-600">0</div>
+                                <p class="text-sm text-gray-600">Correctas</p>
+                            </div>
+                            <div class="text-center p-4 bg-blue-50 rounded-lg">
+                                <div id="mathTotal" class="text-3xl font-bold text-blue-600">0</div>
+                                <p class="text-sm text-gray-600">Total</p>
+                            </div>
+                        </div>
+                        <div class="mt-4 text-center">
+                            <div class="text-lg font-semibold text-purple-600" id="mathAccuracy">0%</div>
+                            <p class="text-sm text-gray-600">Precisión</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-xl shadow-lg p-6">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-4">
+                            <i class="fas fa-lightbulb text-yellow-500 mr-2"></i>
+                            Consejos de Estudio
+                        </h3>
+                        <div class="space-y-3 text-sm text-gray-600">
+                            <p>• Lee el problema completo antes de empezar</p>
+                            <p>• Identifica qué datos tienes y qué necesitas encontrar</p>
+                            <p>• Haz un dibujo si te ayuda a visualizar</p>
+                            <p>• Verifica tu respuesta</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-xl shadow-lg p-6">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-4">
+                            <i class="fas fa-external-link-alt text-indigo-600 mr-2"></i>
+                            Recursos Externos
+                        </h3>
+                        <div class="space-y-3">
+                            <a href="https://es.khanacademy.org/math" target="_blank" class="block bg-blue-50 hover:bg-blue-100 p-3 rounded-lg transition-colors">
+                                <i class="fas fa-graduation-cap text-blue-600 mr-2"></i>
+                                Khan Academy - Matemáticas
+                            </a>
+                            <a href="https://www.geogebra.org/" target="_blank" class="block bg-green-50 hover:bg-green-100 p-3 rounded-lg transition-colors">
+                                <i class="fas fa-shapes text-green-600 mr-2"></i>
+                                GeoGebra - Geometría
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Language Section -->
+        <div id="languageSection" class="section hidden">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-3xl font-bold text-gray-800">
+                    <i class="fas fa-book-open text-blue-600 mr-3"></i>
+                    Lengua Exploradora
+                </h2>
+                <button onclick="showSection('home')" class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-lg transition-all">
+                    <i class="fas fa-home mr-2"></i>
+                    Inicio
+                </button>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-6">
+                <!-- Reading Comprehension -->
+                <div class="bg-white rounded-xl shadow-lg p-6">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-4">
+                        <i class="fas fa-book text-green-600 mr-2"></i>
+                        Comprensión Lectora
+                    </h3>
+                    <div class="bg-gray-50 p-4 rounded-lg mb-4 max-h-64 overflow-y-auto">
+                        <h4 class="font-semibold mb-3">El Colegio Pachamama y la Sostenibilidad</h4>
+                        <p class="text-sm mb-3">
+                            El Colegio Pachamama es una institución educativa comprometida con la preservación del medio ambiente y el desarrollo sostenible. Nuestro enfoque pedagógico integra la conciencia ecológica en todas las materias, formando estudiantes responsables con su entorno.
+                        </p>
+                        <p class="text-sm mb-3">
+                            Los estudiantes participan activamente en proyectos de reciclaje, huertos escolares y campañas de conservación del agua. Además, el colegio utiliza energía solar y ha implementado sistemas de recolección de agua lluvia.
+                        </p>
+                        <p class="text-sm">
+                            La educación ambiental no se limita al aula; se extiende a la familia y la comunidad, creando una red de conciencia ecológica que trasciende los muros del colegio.
+                        </p>
+                    </div>
+
+                    <div class="space-y-3">
+                        <h4 class="font-semibold">Preguntas de Comprensión:</h4>
+                        <div id="comprehensionQuestions">
+                            <!-- Questions will be populated by JavaScript -->
+                        </div>
+                        <button id="checkComprehension" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg w-full transition-all">
+                            Verificar Respuestas
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Writing Exercise -->
+                <div class="space-y-6">
+                    <div class="bg-white rounded-xl shadow-lg p-6">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-4">
+                            <i class="fas fa-pen text-purple-600 mr-2"></i>
+                            Ejercicio de Escritura
+                        </h3>
+                        <p class="text-sm text-gray-600 mb-4 bg-blue-50 p-3 rounded-lg">
+                            <strong>Tarea:</strong> Escribe una carta formal proponiendo una iniciativa ambiental para tu colegio. Incluye: saludo, introducción del problema, propuesta, beneficios y despedida.
+                        </p>
+                        <textarea id="writingExercise" rows="8" class="w-full p-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="Estimado/a Director/a..."></textarea>
+                        <div class="flex justify-between items-center mt-3">
+                            <span id="wordCount" class="text-sm text-gray-500">Palabras: 0</span>
+                            <button id="submitWriting" class="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg transition-all">
+                                <i class="fas fa-paper-plane mr-2"></i>
+                                Enviar Carta
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-xl shadow-lg p-6">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-4">
+                            <i class="fas fa-lightbulb text-yellow-500 mr-2"></i>
+                            Estructura de Carta Formal
+                        </h3>
+                        <div class="space-y-2 text-sm text-gray-600">
+                            <p><strong>1. Encabezado:</strong> Fecha y destinatario</p>
+                            <p><strong>2. Saludo:</strong> "Estimado/a Director/a"</p>
+                            <p><strong>3. Introducción:</strong> Presenta el problema</p>
+                            <p><strong>4. Desarrollo:</strong> Tu propuesta detallada</p>
+                            <p><strong>5. Beneficios:</strong> ¿Por qué es buena idea?</p>
+                            <p><strong>6. Despedida:</strong> "Atentamente" + tu nombre</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-xl shadow-lg p-6">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-4">
+                            <i class="fas fa-external-link-alt text-indigo-600 mr-2"></i>
+                            Recursos de Lengua
+                        </h3>
+                        <div class="space-y-3">
+                            <a href="https://dle.rae.es/" target="_blank" class="block bg-blue-50 hover:bg-blue-100 p-3 rounded-lg transition-colors">
+                                <i class="fas fa-book text-blue-600 mr-2"></i>
+                                RAE - Diccionario
+                            </a>
+                            <a href="https://cvc.cervantes.es/" target="_blank" class="block bg-green-50 hover:bg-green-100 p-3 rounded-lg transition-colors">
+                                <i class="fas fa-language text-green-600 mr-2"></i>
+                                Centro Virtual Cervantes
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- English Section -->
+        <div id="englishSection" class="section hidden">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-3xl font-bold text-gray-800">
+                    <i class="fas fa-globe text-purple-600 mr-3"></i>
+                    English Environmental Explorer
+                </h2>
+                <button onclick="showSection('home')" class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-lg transition-all">
+                    <i class="fas fa-home mr-2"></i>
+                    Inicio
+                </button>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-6">
+                <!-- Vocabulary -->
+                <div class="bg-white rounded-xl shadow-lg p-6">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-4">
+                        <i class="fas fa-leaf text-green-600 mr-2"></i>
+                        Environmental Vocabulary
+                    </h3>
+                    <div id="vocabularyList" class="space-y-3 max-h-64 overflow-y-auto mb-4">
+                        <!-- Vocabulary will be populated by JavaScript -->
+                    </div>
+                    <button id="studyVocab" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg w-full transition-all">
+                        <i class="fas fa-play mr-2"></i>
+                        Study Vocabulary
+                    </button>
+                </div>
+
+                <!-- English Quiz -->
+                <div class="space-y-6">
+                    <div class="bg-white rounded-xl shadow-lg p-6">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-4">
+                            <i class="fas fa-question-circle text-blue-600 mr-2"></i>
+                            Vocabulary Quiz
+                        </h3>
+                        <div id="englishQuiz">
+                            <div id="englishQuestion" class="bg-gray-50 p-4 rounded-lg mb-4"></div>
+                            <div id="englishOptions" class="space-y-2 mb-4"></div>
+                            <button id="submitEnglishAnswer" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg w-full transition-all">
+                                Answer
+                            </button>
+                            <div id="englishResult" class="mt-4 p-4 rounded-lg hidden"></div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-xl shadow-lg p-6">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-4">
+                            <i class="fas fa-chart-line text-purple-600 mr-2"></i>
+                            English Progress
+                        </h3>
+                        <div class="text-center">
+                            <div class="text-3xl font-bold text-purple-600" id="englishScore">0</div>
+                            <p class="text-sm text-gray-600 mb-3">Correct Answers</p>
+                            <div class="w-full bg-gray-200 rounded-full h-2">
+                                <div id="englishProgress" class="bg-purple-600 h-2 rounded-full transition-all duration-300" style="width: 0%"></div>
+                            </div>
+                            <p class="text-xs text-gray-500 mt-1">Progress to English Expert</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-xl shadow-lg p-6">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-4">
+                            <i class="fas fa-external-link-alt text-indigo-600 mr-2"></i>
+                            English Resources
+                        </h3>
+                        <div class="space-y-3">
+                            <a href="https://www.duolingo.com/" target="_blank" class="block bg-green-50 hover:bg-green-100 p-3 rounded-lg transition-colors">
+                                <i class="fas fa-graduation-cap text-green-600 mr-2"></i>
+                                Duolingo
+                            </a>
+                            <a href="https://www.bbc.co.uk/learningenglish/" target="_blank" class="block bg-red-50 hover:bg-red-100 p-3 rounded-lg transition-colors">
+                                <i class="fas fa-microphone text-red-600 mr-2"></i>
+                                BBC Learning English
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- AI Assistant Modal -->
+    <div id="aiAssistantModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-xl shadow-2xl w-full max-w-2xl mx-4 max-h-96">
+            <div class="flex justify-between items-center p-6 border-b">
+                <h3 class="text-xl font-semibold text-gray-800">
+                    <i class="fas fa-robot text-purple-600 mr-2"></i>
+                    Asistente IA Pachamama
+                </h3>
+                <button id="closeAI" class="text-gray-500 hover:text-gray-700 transition-all">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            <div id="chatContainer" class="p-6 max-h-64 overflow-y-auto">
+                <div class="chat-message bg-purple-100 p-3 rounded-lg mb-4">
+                    <p class="text-sm">¡Hola Benji! Soy tu asistente de estudio. ¿En qué materia necesitas ayuda? Puedes preguntarme cualquier cosa sobre matemáticas, lengua o inglés.</p>
+                </div>
+            </div>
+            <div class="p-6 border-t">
+                <div class="flex space-x-2">
+                    <input type="text" id="chatInput" class="flex-1 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent" placeholder="Escribe tu pregunta...">
+                    <button id="sendMessage" class="bg-purple-600 hover:bg-purple-700 text-white px-6 py-3 rounded-lg transition-all">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+                <div class="flex flex-wrap gap-2 mt-3">
+                    <button class="ai-quick-btn bg-green-100 hover:bg-green-200 text-green-700 px-3 py-1 rounded-full text-sm transition-all" data-subject="math">Matemáticas</button>
+                    <button class="ai-quick-btn bg-blue-100 hover:bg-blue-200 text-blue-700 px-3 py-1 rounded-full text-sm transition-all" data-subject="language">Lengua</button>
+                    <button class="ai-quick-btn bg-purple-100 hover:bg-purple-200 text-purple-700 px-3 py-1 rounded-full text-sm transition-all" data-subject="english">Inglés</button>
+                    <button class="ai-quick-btn bg-yellow-100 hover:bg-yellow-200 text-yellow-700 px-3 py-1 rounded-full text-sm transition-all" data-subject="help">Ayuda General</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Achievement Notification -->
+    <div id="achievementNotification" class="fixed top-20 right-6 bg-yellow-500 text-white p-4 rounded-lg shadow-lg hidden z-50">
+        <div class="flex items-center space-x-3">
+            <i class="fas fa-trophy text-2xl"></i>
+            <div>
+                <h4 class="font-semibold">¡Logro Desbloqueado!</h4>
+                <p id="achievementText" class="text-sm"></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Message Template -->
+    <div id="successMessage" class="fixed top-32 right-6 bg-green-500 text-white p-4 rounded-lg shadow-lg hidden z-50">
+        <div class="flex items-center space-x-2">
+            <i class="fas fa-check-circle"></i>
+            <span id="successText"></span>
+        </div>
+    </div>
+
+    <script>
+        // Global variables - Completely accessible without any login restrictions
+        let gameState = {
+            currentSection: 'home',
+            totalPoints: 0,
+            dailyStreak: 0,
+            progress: 0,
+            achievements: [],
+            notes: '',
+            timer: {
+                minutes: 25,
+                seconds: 0,
+                isActive: false,
+                mode: 'study' // 'study' or 'break'
+            },
+            math: {
+                currentQuestion: 0,
+                correctAnswers: 0,
+                totalQuestions: 0,
+                lastAttempt: null
+            },
+            language: {
+                comprehensionAnswers: [],
+                lastWritingSubmission: null
+            },
+            english: {
+                currentVocabIndex: 0,
+                quizScore: 0,
+                lastQuizAttempt: null
+            },
+            todayStats: {
+                points: 0,
+                activities: 0,
+                studyTime: 0
+            }
+        };
+
+        // Data arrays
+        const motivationalQuotes = [
+            "¡Cada día es una oportunidad para aprender algo nuevo!",
+            "La educación es el arma más poderosa para cambiar el mundo",
+            "El conocimiento es como un jardín: si no se cultiva, no se puede cosechar",
+            "¡Tus sueños están a un paso de distancia!",
+            "La práctica hace al maestro, ¡sigue adelante!",
+            "Cada problema resuelto te hace más fuerte",
+            "El aprendizaje nunca agota la mente",
+            "¡Eres capaz de lograr cosas increíbles, Benji!"
+        ];
+
+        const mathProblems = [
+            {
+                question: "Si una escuela recicla 120 kg de papel al mes, ¿cuántos kg reciclará en 8 meses?",
+                options: ["960 kg", "840 kg", "1000 kg", "720 kg"],
+                correct: 0,
+                explanation: "120 × 8 = 960 kg"
+            },
+            {
+                question: "Un huerto escolar tiene 15 plantas de tomate. Si cada planta produce 8 tomates, ¿cuántos tomates se cosechan en total?",
+                options: ["120", "100", "150", "80"],
+                correct: 0,
+                explanation: "15 × 8 = 120 tomates"
+            },
+            {
+                question: "Si 5 estudiantes pueden plantar 25 árboles en 2 horas, ¿cuántos árboles plantarán 8 estudiantes en el mismo tiempo?",
+                options: ["40", "35", "45", "50"],
+                correct: 0,
+                explanation: "Cada estudiante planta 5 árboles en 2 horas, entonces 8 × 5 = 40 árboles"
+            },
+            {
+                question: "Una familia ahorra 45 litros de agua al día. ¿Cuántos litros ahorrará en una semana?",
+                options: ["315", "300", "350", "280"],
+                correct: 0,
+                explanation: "45 × 7 = 315 litros"
+            },
+            {
+                question: "Si el 60% de 250 estudiantes participan en actividades ambientales, ¿cuántos estudiantes participan?",
+                options: ["150", "140", "160", "120"],
+                correct: 0,
+                explanation: "60% de 250 = 0.60 × 250 = 150 estudiantes"
+            },
+            {
+                question: "Un colegio reduce su consumo eléctrico en 30% cada mes. Si inicialmente consumía 1200 kWh, ¿cuánto consume después de la reducción?",
+                options: ["840 kWh", "900 kWh", "800 kWh", "760 kWh"],
+                correct: 0,
+                explanation: "1200 - (30% de 1200) = 1200 - 360 = 840 kWh"
+            }
+        ];
+
+        const vocabulary = [
+            { english: "Environment", spanish: "Medio ambiente", example: "We must protect our environment" },
+            { english: "Recycle", spanish: "Reciclar", example: "Please recycle this plastic bottle" },
+            { english: "Sustainable", spanish: "Sostenible", example: "We need sustainable development" },
+            { english: "Pollution", spanish: "Contaminación", example: "Air pollution is a serious problem" },
+            { english: "Conservation", spanish: "Conservación", example: "Water conservation is important" },
+            { english: "Renewable", spanish: "Renovable", example: "Solar energy is renewable" },
+            { english: "Ecosystem", spanish: "Ecosistema", example: "The forest ecosystem is diverse" },
+            { english: "Biodiversity", spanish: "Biodiversidad", example: "We must preserve biodiversity" },
+            { english: "Climate", spanish: "Clima", example: "Climate change affects everyone" },
+            { english: "Green", spanish: "Verde/Ecológico", example: "We promote green technologies" }
+        ];
+
+        const comprehensionQuestions = [
+            {
+                question: "¿Cuál es el enfoque principal del Colegio Pachamama?",
+                options: ["Deportes", "Sostenibilidad", "Arte", "Tecnología"],
+                correct: 1
+            },
+            {
+                question: "¿Qué tipo de energía utiliza el colegio?",
+                options: ["Eólica", "Solar", "Nuclear", "Carbón"],
+                correct: 1
+            },
+            {
+                question: "¿Cómo se extiende la educación ambiental según el texto?",
+                options: ["Solo en el aula", "A la familia y comunidad", "Solo a los profesores", "Solo los fines de semana"],
+                correct: 1
+            }
+        ];
+
+        const achievements = [
+            { id: 'first_day', name: 'Primer Día', description: 'Completaste tu primer día de estudio', icon: 'star', unlocked: false },
+            { id: 'math_master', name: 'Maestro Matemático', description: 'Resolviste 10 problemas matemáticos', icon: 'calculator', unlocked: false },
+            { id: 'word_wizard', name: 'Mago de Palabras', description: 'Completaste el ejercicio de escritura', icon: 'pen', unlocked: false },
+            { id: 'english_expert', name: 'Experto en Inglés', description: 'Dominaste el vocabulario ambiental', icon: 'globe', unlocked: false },
+            { id: 'pomodoro_pro', name: 'Experto Pomodoro', description: 'Completaste 5 sesiones de estudio', icon: 'clock', unlocked: false },
+            { id: 'streak_master', name: 'Racha Perfecta', description: 'Mantuviste una racha de 7 días', icon: 'fire', unlocked: false },
+            { id: 'super_student', name: 'Súper Estudiante', description: 'Alcanzaste 500 puntos', icon: 'trophy', unlocked: false },
+            { id: 'eco_warrior', name: 'Guerrero Ecológico', description: 'Completaste todas las materias', icon: 'leaf', unlocked: false }
+        ];
+
+        // Utility functions - No login required, completely accessible
+        function saveGameState() {
+            gameState.lastSave = new Date().toISOString();
+            localStorage.setItem('pachamamaGameState', JSON.stringify(gameState));
+        }
+
+        function loadGameState() {
+            const saved = localStorage.getItem('pachamamaGameState');
+            if (saved) {
+                const loadedState = JSON.parse(saved);
+                gameState = { ...gameState, ...loadedState };
+                updateDailyStreak();
+                updateUI();
+            }
+        }
+
+        function updateDailyStreak() {
+            const today = new Date().toDateString();
+            const lastSave = gameState.lastSave ? new Date(gameState.lastSave).toDateString() : null;
+
+            if (lastSave !== today) {
+                if (lastSave && isYesterday(new Date(gameState.lastSave))) {
+                    gameState.dailyStreak++;
+                } else if (lastSave && !isYesterday(new Date(gameState.lastSave))) {
+                    gameState.dailyStreak = 1;
+                } else {
+                    gameState.dailyStreak = 1;
+                }
+
+                // Reset daily stats for new day
+                gameState.todayStats = { points: 0, activities: 0, studyTime: 0 };
+            }
+        }
+
+        function isYesterday(date) {
+            const yesterday = new Date();
+            yesterday.setDate(yesterday.getDate() - 1);
+            return date.toDateString() === yesterday.toDateString();
+        }
+
+        function addPoints(points, reason = '') {
+            gameState.totalPoints += points;
+            gameState.todayStats.points += points;
+            gameState.todayStats.activities++;
+
+            updateProgress();
+            updateUI();
+
+            if (reason) {
+                showTemporaryMessage(`+${points} puntos por ${reason}`, 'success');
+            }
+
+            // Check for point-based achievements
+            if (gameState.totalPoints >= 500 && !gameState.achievements.includes('super_student')) {
+                unlockAchievement('super_student');
+            }
+
+            saveGameState();
+        }
+
+        function updateProgress() {
+            const baseProgress = Math.min((gameState.totalPoints / 1000) * 100, 100);
+            gameState.progress = Math.floor(baseProgress);
+        }
+
+        function unlockAchievement(achievementId) {
+            const achievement = achievements.find(a => a.id === achievementId);
+            if (achievement && !gameState.achievements.includes(achievementId)) {
+                gameState.achievements.push(achievementId);
+                achievement.unlocked = true;
+                showAchievementNotification(achievement);
+                addPoints(50, 'logro desbloqueado');
+                saveGameState();
+            }
+        }
+
+        function showAchievementNotification(achievement) {
+            const notification = document.getElementById('achievementNotification');
+            const text = document.getElementById('achievementText');
+
+            text.textContent = achievement.name;
+            notification.classList.remove('hidden');
+            notification.classList.add('achievement-notification');
+
+            setTimeout(() => {
+                notification.classList.add('hidden');
+                notification.classList.remove('achievement-notification');
+            }, 3500);
+        }
+
+        function showTemporaryMessage(message, type = 'info') {
+            const messageEl = document.getElementById('successMessage');
+            const textEl = document.getElementById('successText');
+
+            textEl.textContent = message;
+
+            messageEl.className = `fixed top-32 right-6 p-4 rounded-lg shadow-lg z-50 text-white ${
+                type === 'success' ? 'bg-green-500' :
+                type === 'error' ? 'bg-red-500' : 'bg-blue-500'
+            }`;
+
+            messageEl.classList.remove('hidden');
+
+            setTimeout(() => {
+                messageEl.classList.add('hidden');
+            }, 3000);
+        }
+
+        function updateUI() {
+            document.getElementById('totalPoints').textContent = gameState.totalPoints;
+            document.getElementById('dailyStreak').textContent = gameState.dailyStreak;
+            document.getElementById('progressPercent').textContent = gameState.progress + '%';
+            document.getElementById('progressText').textContent = gameState.progress + '%';
+
+            // Update today stats
+            document.getElementById('todayPoints').textContent = gameState.todayStats.points;
+            document.getElementById('todayActivities').textContent = gameState.todayStats.activities;
+            document.getElementById('todayStudyTime').textContent = gameState.todayStats.studyTime + ' min';
+
+            // Update progress circle
+            const circle = document.getElementById('progressCircle');
+            const circumference = 2 * Math.PI * 45;
+            const offset = circumference - (gameState.progress / 100) * circumference;
+            circle.style.strokeDashoffset = offset;
+
+            // Update achievements list
+            updateAchievementsList();
+            updateMathStats();
+            updateEnglishStats();
+        }
+
+        function updateMathStats() {
+            document.getElementById('mathCorrect').textContent = gameState.math.correctAnswers;
+            document.getElementById('mathTotal').textContent = gameState.math.totalQuestions;
+
+            if (gameState.math.totalQuestions > 0) {
+                const accuracy = Math.round((gameState.math.correctAnswers / gameState.math.totalQuestions) * 100);
+                document.getElementById('mathAccuracy').textContent = accuracy + '%';
+            }
+        }
+
+        function updateEnglishStats() {
+            document.getElementById('englishScore').textContent = gameState.english.quizScore;
+            const progress = Math.min((gameState.english.quizScore / 10) * 100, 100);
+            document.getElementById('englishProgress').style.width = progress + '%';
+        }
+
+        function updateAchievementsList() {
+            const container = document.getElementById('achievementsList');
+            const unlockedAchievements = achievements.filter(a => gameState.achievements.includes(a.id));
+
+            if (unlockedAchievements.length === 0) {
+                container.innerHTML = '<p class="text-gray-500 text-sm">Completa actividades para desbloquear logros</p>';
+                return;
+            }
+
+            container.innerHTML = unlockedAchievements.map(achievement => `
+                <div class="flex items-center space-x-3 bg-yellow-50 p-2 rounded-lg">
+                    <i class="fas fa-${achievement.icon} text-yellow-600"></i>
+                    <div>
+                        <div class="font-semibold text-sm">${achievement.name}</div>
+                        <div class="text-xs text-gray-600">${achievement.description}</div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function showSection(sectionName) {
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.add('hidden');
+            });
+
+            document.getElementById(sectionName + 'Section').classList.remove('hidden');
+            gameState.currentSection = sectionName;
+
+            if (sectionName === 'math') {
+                initializeMathQuiz();
+            } else if (sectionName === 'language') {
+                initializeLanguageSection();
+            } else if (sectionName === 'english') {
+                initializeEnglishSection();
+            } else if (sectionName === 'home') {
+                updateMotivationalQuote();
+            }
+
+            saveGameState();
+        }
+
+        function updateMotivationalQuote() {
+            const quote = motivationalQuotes[Math.floor(Math.random() * motivationalQuotes.length)];
+            document.getElementById('motivationalQuote').textContent = quote;
+        }
+
+        // Math Quiz Functions - No restrictions, completely accessible
+        function initializeMathQuiz() {
+            gameState.math.currentQuestion = 0;
+            generateMathQuestion();
+        }
+
+        function generateMathQuestion() {
+            const problem = mathProblems[Math.floor(Math.random() * mathProblems.length)];
+
+            document.getElementById('mathQuestion').innerHTML = `
+                <h4 class="font-semibold mb-2">Problema ${gameState.math.currentQuestion + 1}</h4>
+                <p>${problem.question}</p>
+            `;
+
+            document.getElementById('mathOptions').innerHTML = problem.options.map((option, index) => `
+                <label class="flex items-center space-x-2 p-2 border border-gray-300 rounded-lg hover:bg-gray-50 cursor-pointer transition-all">
+                    <input type="radio" name="mathAnswer" value="${index}" class="text-green-600">
+                    <span>${option}</span>
+                </label>
+            `).join('');
+
+            document.getElementById('mathResult').classList.add('hidden');
+            window.currentMathProblem = problem;
+
+            const progress = ((gameState.math.currentQuestion) / 5) * 100;
+            document.getElementById('quizProgress').style.width = progress + '%';
+            document.getElementById('currentQuestion').textContent = gameState.math.currentQuestion + 1;
+        }
+
+        function checkMathAnswer() {
+            const selectedAnswer = document.querySelector('input[name="mathAnswer"]:checked');
+            if (!selectedAnswer) {
+                showTemporaryMessage('Selecciona una respuesta', 'error');
+                return;
+            }
+
+            const isCorrect = parseInt(selectedAnswer.value) === window.currentMathProblem.correct;
+            const resultDiv = document.getElementById('mathResult');
+
+            if (isCorrect) {
+                gameState.math.correctAnswers++;
+                resultDiv.innerHTML = `
+                    <div class="bg-green-100 text-green-800 p-3 rounded-lg">
+                        <i class="fas fa-check-circle mr-2"></i>
+                        ¡Correcto! ${window.currentMathProblem.explanation}
+                    </div>
+                `;
+                addPoints(20, 'respuesta correcta');
+            } else {
+                resultDiv.innerHTML = `
+                    <div class="bg-red-100 text-red-800 p-3 rounded-lg">
+                        <i class="fas fa-times-circle mr-2"></i>
+                        Incorrecto. ${window.currentMathProblem.explanation}
+                    </div>
+                `;
+            }
+
+            resultDiv.classList.remove('hidden');
+            gameState.math.currentQuestion++;
+            gameState.math.totalQuestions++;
+
+            updateMathStats();
+
+            if (gameState.math.currentQuestion < 5) {
+                setTimeout(() => {
+                    generateMathQuestion();
+                }, 2000);
+            } else {
+                setTimeout(() => {
+                    const score = Math.floor((gameState.math.correctAnswers / 5) * 100);
+                    showTemporaryMessage(`Quiz completado: ${score}% de precisión`, 'success');
+
+                    if (gameState.math.correctAnswers >= 4) {
+                        unlockAchievement('math_master');
+                    }
+
+                    addPoints(25, 'completar quiz matemático');
+                    gameState.math.lastAttempt = new Date().toISOString();
+                    saveGameState();
+
+                    gameState.math.currentQuestion = 0;
+                }, 2000);
+            }
+        }
+
+        // Language Section Functions - Completely accessible
+        function initializeLanguageSection() {
+            generateComprehensionQuestions();
+            updateWordCount();
+        }
+
+        function generateComprehensionQuestions() {
+            const container = document.getElementById('comprehensionQuestions');
+            container.innerHTML = comprehensionQuestions.map((q, index) => `
+                <div class="mb-4">
+                    <p class="font-medium mb-2">${index + 1}. ${q.question}</p>
+                    <div class="space-y-1">
+                        ${q.options.map((option, optIndex) => `
+                            <label class="flex items-center space-x-2 cursor-pointer hover:bg-gray-50 p-2 rounded transition-all">
+                                <input type="radio" name="question${index}" value="${optIndex}" class="text-blue-600">
+                                <span class="text-sm">${option}</span>
+                            </label>
+                        `).join('')}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function checkComprehension() {
+            let correctAnswers = 0;
+            const totalQuestions = comprehensionQuestions.length;
+
+            comprehensionQuestions.forEach((q, index) => {
+                const selected = document.querySelector(`input[name="question${index}"]:checked`);
+                if (selected && parseInt(selected.value) === q.correct) {
+                    correctAnswers++;
+                }
+            });
+
+            const score = Math.floor((correctAnswers / totalQuestions) * 100);
+            showTemporaryMessage(`Comprensión: ${correctAnswers}/${totalQuestions} correctas (${score}%)`, 'success');
+
+            if (score >= 66) {
+                addPoints(30, 'comprensión lectora');
+            }
+
+            saveGameState();
+        }
+
+        function updateWordCount() {
+            const textarea = document.getElementById('writingExercise');
+            const counter = document.getElementById('wordCount');
+
+            textarea.addEventListener('input', function() {
+                const words = this.value.trim().split(/\s+/).filter(word => word.length > 0);
+                counter.textContent = `Palabras: ${words.length}`;
+            });
+        }
+
+        function submitWriting() {
+            const textarea = document.getElementById('writingExercise');
+            const text = textarea.value.trim();
+
+            if (text.length < 50) {
+                showTemporaryMessage('La carta debe tener al menos 50 caracteres', 'error');
+                return;
+            }
+
+            const words = text.split(/\s+/).filter(word => word.length > 0);
+
+            if (words.length < 30) {
+                showTemporaryMessage('La carta debe tener al menos 30 palabras', 'error');
+                return;
+            }
+
+            const hasGreeting = /estimado|querido|sr\.|sra\./i.test(text);
+            const hasFarewell = /atentamente|cordialmente|saludos/i.test(text);
+
+            let points = 20;
+            if (hasGreeting) points += 10;
+            if (hasFarewell) points += 10;
+            if (words.length > 100) points += 20;
+
+            addPoints(points, 'ejercicio de escritura');
+            unlockAchievement('word_wizard');
+
+            gameState.language.lastWritingSubmission = new Date().toISOString();
+            saveGameState();
+
+            showTemporaryMessage(`¡Excelente carta! +${points} puntos`, 'success');
+        }
+
+        // English Section Functions - No access restrictions
+        function initializeEnglishSection() {
+            displayVocabulary();
+            generateEnglishQuiz();
+        }
+
+        function displayVocabulary() {
+            const container = document.getElementById('vocabularyList');
+            container.innerHTML = vocabulary.map(word => `
+                <div class="bg-gray-50 p-3 rounded-lg hover:bg-blue-50 transition-all">
+                    <div class="flex justify-between items-start mb-1">
+                        <span class="font-semibold text-blue-600">${word.english}</span>
+                        <span class="text-gray-600">${word.spanish}</span>
+                    </div>
+                    <p class="text-sm text-gray-600 italic">"${word.example}"</p>
+                </div>
+            `).join('');
+        }
+
+        function generateEnglishQuiz() {
+            const randomWord = vocabulary[Math.floor(Math.random() * vocabulary.length)];
+            const otherWords = vocabulary.filter(w => w !== randomWord).sort(() => 0.5 - Math.random()).slice(0, 2);
+            const options = [randomWord.spanish, ...otherWords.map(w => w.spanish)].sort(() => 0.5 - Math.random());
+
+            document.getElementById('englishQuestion').innerHTML = `
+                <h4 class="font-semibold mb-2">What does "<span class="text-purple-600">${randomWord.english}</span>" mean in Spanish?</h4>
+                <p class="text-sm text-gray-600">Example: "<em>${randomWord.example}</em>"</p>
+            `;
+
+            document.getElementById('englishOptions').innerHTML = options.map((option, index) => `
+                <label class="flex items-center space-x-2 p-2 border border-gray-300 rounded-lg hover:bg-gray-50 cursor-pointer transition-all">
+                    <input type="radio" name="englishAnswer" value="${option}" class="text-purple-600">
+                    <span>${option}</span>
+                </label>
+            `).join('');
+
+            document.getElementById('englishResult').classList.add('hidden');
+            window.currentEnglishAnswer = randomWord.spanish;
+        }
+
+        function checkEnglishAnswer() {
+            const selectedAnswer = document.querySelector('input[name="englishAnswer"]:checked');
+            if (!selectedAnswer) {
+                showTemporaryMessage('Select an answer', 'error');
+                return;
+            }
+
+            const isCorrect = selectedAnswer.value === window.currentEnglishAnswer;
+            const resultDiv = document.getElementById('englishResult');
+
+            if (isCorrect) {
+                resultDiv.innerHTML = `
+                    <div class="bg-green-100 text-green-800 p-3 rounded-lg">
+                        <i class="fas fa-check-circle mr-2"></i>
+                        Correct! Well done!
+                    </div>
+                `;
+                addPoints(15, 'vocabulario correcto');
+                gameState.english.quizScore++;
+
+                if (gameState.english.quizScore >= 10) {
+                    unlockAchievement('english_expert');
+                }
+            } else {
+                resultDiv.innerHTML = `
+                    <div class="bg-red-100 text-red-800 p-3 rounded-lg">
+                        <i class="fas fa-times-circle mr-2"></i>
+                        Incorrect. The correct answer is "<strong>${window.currentEnglishAnswer}</strong>".
+                    </div>
+                `;
+            }
+
+            resultDiv.classList.remove('hidden');
+            updateEnglishStats();
+            saveGameState();
+
+            setTimeout(() => {
+                generateEnglishQuiz();
+            }, 2500);
+        }
+
+        // Timer Functions - Completely accessible
+        let timerInterval;
+
+        function startTimer() {
+            if (gameState.timer.isActive) return;
+
+            gameState.timer.isActive = true;
+
+            timerInterval = setInterval(() => {
+                if (gameState.timer.seconds > 0) {
+                    gameState.timer.seconds--;
+                } else if (gameState.timer.minutes > 0) {
+                    gameState.timer.minutes--;
+                    gameState.timer.seconds = 59;
+                } else {
+                    clearInterval(timerInterval);
+                    gameState.timer.isActive = false;
+
+                    if (gameState.timer.mode === 'study') {
+                        addPoints(25, 'sesión Pomodoro completada');
+                        gameState.timer.mode = 'break';
+                        gameState.timer.minutes = 5;
+                        gameState.timer.seconds = 0;
+                        gameState.todayStats.studyTime += 25;
+
+                        const completedSessions = Math.floor(gameState.totalPoints / 25);
+                        if (completedSessions >= 5) {
+                            unlockAchievement('pomodoro_pro');
+                        }
+
+                        showTemporaryMessage('¡Sesión de estudio completada! Tiempo de descanso.', 'success');
+                    } else {
+                        gameState.timer.mode = 'study';
+                        gameState.timer.minutes = 25;
+                        gameState.timer.seconds = 0;
+                        showTemporaryMessage('Descanso terminado. ¡Hora de estudiar!', 'success');
+                    }
+                }
+
+                updateTimerDisplay();
+                updateUI();
+                saveGameState();
+            }, 1000);
+        }
+
+        function pauseTimer() {
+            if (timerInterval) {
+                clearInterval(timerInterval);
+                gameState.timer.isActive = false;
+                saveGameState();
+            }
+        }
+
+        function resetTimer() {
+            pauseTimer();
+            gameState.timer.minutes = gameState.timer.mode === 'study' ? 25 : 5;
+            gameState.timer.seconds = 0;
+            updateTimerDisplay();
+            saveGameState();
+        }
+
+        function updateTimerDisplay() {
+            const minutes = String(gameState.timer.minutes).padStart(2, '0');
+            const seconds = String(gameState.timer.seconds).padStart(2, '0');
+            document.getElementById('timerDisplay').textContent = `${minutes}:${seconds}`;
+            document.getElementById('timerMode').textContent = `Modo: ${gameState.timer.mode === 'study' ? 'Estudio' : 'Descanso'}`;
+        }
+
+        // AI Assistant Functions - No login restrictions
+        function toggleAIAssistant() {
+            const modal = document.getElementById('aiAssistantModal');
+            modal.classList.toggle('hidden');
+        }
+
+        function sendChatMessage() {
+            const input = document.getElementById('chatInput');
+            const message = input.value.trim();
+
+            if (!message) return;
+
+            addChatMessage(message, 'user');
+            input.value = '';
+
+            setTimeout(() => {
+                const response = generateAIResponse(message);
+                addChatMessage(response, 'ai');
+            }, 1000);
+        }
+
+        function addChatMessage(message, sender) {
+            const container = document.getElementById('chatContainer');
+            const messageEl = document.createElement('div');
+            messageEl.className = `chat-message mb-4 ${sender === 'user' ? 'text-right' : ''}`;
+
+            messageEl.innerHTML = `
+                <div class="inline-block p-3 rounded-lg max-w-xs ${
+                    sender === 'user'
+                        ? 'bg-purple-600 text-white'
+                        : 'bg-purple-100 text-purple-800'
+                }">
+                    <p class="text-sm">${message}</p>
+                </div>
+            `;
+
+            container.appendChild(messageEl);
+            container.scrollTop = container.scrollHeight;
+        }
+
+        function generateAIResponse(message) {
+            const lowercaseMessage = message.toLowerCase();
+
+            if (lowercaseMessage.includes('matemática') || lowercaseMessage.includes('math')) {
+                return "¡Excelente elección! Las matemáticas son fundamentales. Te recomiendo practicar con los problemas ecológicos del quiz. Cada problema te ayuda a relacionar las matemáticas con el cuidado del medio ambiente. ¿Hay algún tipo de problema específico que te resulte difícil?";
+            } else if (lowercaseMessage.includes('lengua') || lowercaseMessage.includes('escribir')) {
+                return "La escritura mejora con la práctica constante. Recuerda usar una estructura clara: introducción, desarrollo y conclusión. Para las cartas formales, es importante el saludo y la despedida. ¿Te gustaría consejos específicos para mejorar tu redacción?";
+            } else if (lowercaseMessage.includes('inglés') || lowercaseMessage.includes('english')) {
+                return "¡Great choice! El vocabulario ambiental es muy útil para el futuro. Te sugiero estudiar las palabras con sus ejemplos y practicar usándolas en oraciones propias. La repetición es clave. ¿Qué palabra te resulta más difícil de recordar?";
+            } else if (lowercaseMessage.includes('tiempo') || lowercaseMessage.includes('estudiar') || lowercaseMessage.includes('pomodoro')) {
+                return "El método Pomodoro es excelente para mantener la concentración. 25 minutos de estudio intenso seguidos de 5 minutos de descanso. Es importante respetar los descansos. ¿Ya probaste el cronómetro de la aplicación?";
+            } else if (lowercaseMessage.includes('puntos') || lowercaseMessage.includes('logros')) {
+                return "Los puntos y logros te motivan a seguir aprendiendo. Cada actividad completada suma puntos. Los logros especiales se desbloquean con dedicación constante. ¡Sigue así que vas muy bien!";
+            } else if (lowercaseMessage.includes('ayuda') || lowercaseMessage.includes('help')) {
+                return "Estoy aquí para ayudarte en todo momento. Puedes preguntarme sobre matemáticas, lengua, inglés, técnicas de estudio, o cualquier duda que tengas. No hay restricciones, ¡puedes usar la aplicación libremente!";
+            } else {
+                return "Entiendo tu pregunta. Esta aplicación está diseñada especialmente para ti, Benji. No hay restricciones de acceso - puedes estudiar cuando quieras. Te recomiendo usar los recursos externos que tenemos disponibles, practicar regularmente y no dudar en revisar los temas que te resulten más difíciles. ¿Hay alguna materia específica en la que quieras enfocarte?";
+            }
+        }
+
+        function saveNotes() {
+            const notes = document.getElementById('quickNotes').value;
+            gameState.notes = notes;
+            saveGameState();
+            showTemporaryMessage('Notas guardadas correctamente', 'success');
+            addPoints(5, 'guardar notas');
+        }
+
+        // Event Listeners - Initialize everything without restrictions
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load game state immediately - no login required
+            loadGameState();
+            updateUI();
+            updateMotivationalQuote();
+            updateTimerDisplay();
+
+            // Timer controls
+            document.getElementById('startTimer').addEventListener('click', startTimer);
+            document.getElementById('pauseTimer').addEventListener('click', pauseTimer);
+            document.getElementById('resetTimer').addEventListener('click', resetTimer);
+
+            // Math quiz
+            document.getElementById('submitMathAnswer').addEventListener('click', checkMathAnswer);
+
+            // Language section
+            document.getElementById('checkComprehension').addEventListener('click', checkComprehension);
+            document.getElementById('submitWriting').addEventListener('click', submitWriting);
+
+            // English section
+            document.getElementById('submitEnglishAnswer').addEventListener('click', checkEnglishAnswer);
+            document.getElementById('studyVocab').addEventListener('click', () => {
+                showTemporaryMessage('¡Sigue estudiando el vocabulario!', 'success');
+                addPoints(5, 'estudiar vocabulario');
+            });
+
+            // AI Assistant
+            document.getElementById('aiAssistantBtn').addEventListener('click', toggleAIAssistant);
+            document.getElementById('closeAI').addEventListener('click', toggleAIAssistant);
+            document.getElementById('sendMessage').addEventListener('click', sendChatMessage);
+            document.getElementById('chatInput').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    sendChatMessage();
+                }
+            });
+
+            // Quick AI buttons
+            document.querySelectorAll('.ai-quick-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const subject = this.dataset.subject;
+                    if (subject === 'help') {
+                        addChatMessage('Necesito ayuda general con mis estudios', 'user');
+                        setTimeout(() => {
+                            addChatMessage('¡Perfecto! Te ayudo con cualquier duda. Esta aplicación tiene matemáticas ecológicas, comprensión lectora, vocabulario en inglés y un cronómetro Pomodoro. Todo está disponible sin restricciones. ¿Con qué materia quieres empezar?', 'ai');
+                        }, 1000);
+                    } else {
+                        showSection(subject);
+                        toggleAIAssistant();
+                    }
+                });
+            });
+
+            // Notes
+            document.getElementById('quickNotes').addEventListener('input', function() {
+                gameState.notes = this.value;
+            });
+
+            // Load saved notes
+            document.getElementById('quickNotes').value = gameState.notes || '';
+
+            // Check for achievements
+            if (gameState.dailyStreak >= 7) {
+                unlockAchievement('streak_master');
+            }
+
+            // Check if all subjects have been completed
+            if (gameState.math.totalQuestions > 0 && gameState.language.lastWritingSubmission && gameState.english.quizScore > 0) {
+                unlockAchievement('eco_warrior');
+            }
+
+            // Mark first day achievement after a brief delay
+            if (!gameState.achievements.includes('first_day')) {
+                setTimeout(() => {
+                    unlockAchievement('first_day');
+                }, 2000);
+            }
+
+            console.log('🌱 Centro Pachamama inicializado correctamente - Acceso libre para Benji');
+        });
+
+        // Auto-save every 30 seconds
+        setInterval(() => {
+            saveGameState();
+        }, 30000);
+
+        // Welcome message for first-time users
+        setTimeout(() => {
+            if (gameState.totalPoints === 0) {
+                showTemporaryMessage('¡Bienvenido Benji! Explora todas las materias sin restricciones', 'success');
+            }
+        }, 3000);
     </script>
 </body>
 </html>
