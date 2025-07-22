@@ -137,24 +137,24 @@ const PachamamaCenter = () => {
     addPoints(25);
   };
 
-  const FloatingElements = () => (
-    <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
-      {[...Array(6)].map((_, i) => (
-        <div
-          key={i}
-          className="absolute animate-pulse text-2xl opacity-20"
-          style={{
-            left: `${Math.random() * 100}%`,
-            top: `${Math.random() * 100}%`,
-            animationDelay: `${i * 0.5}s`,
-            animationDuration: `${3 + Math.random() * 2}s`
-          }}
-        >
-          {['🌱', '🌿', '🦋', '🌸', '🍃', '🌳'][i]}
-        </div>
-      ))}
-    </div>
-  );
+  // const FloatingElements = () => (
+  //   <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
+  //     {[...Array(6)].map((_, i) => (
+  //       <div
+  //         key={i}
+  //         className="absolute animate-pulse text-2xl opacity-20"
+  //         style={{
+  //           left: `${Math.random() * 100}%`,
+  //           top: `${Math.random() * 100}%`,
+  //           animationDelay: `${i * 0.5}s`,
+  //           animationDuration: `${3 + Math.random() * 2}s`
+  //         }}
+  //       >
+  //         {['🌱', '🌿', '🦋', '🌸', '🍃', '🌳'][i]}
+  //       </div>
+  //     ))}
+  //   </div>
+  // );
 
   const NavigationBar = () => (
     <nav className="bg-gradient-to-r from-green-600 to-emerald-600 text-white p-4 shadow-lg backdrop-blur-sm">
