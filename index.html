@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Centro Pachamama – Benji</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Estilos propios -->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="min-h-screen">
+    <!-- Fondo animado -->
+    <div class="fixed inset-0 pointer-events-none z-0">
+        <div class="floating-element absolute top-20 left-10 text-green-300 opacity-20"><i class="fas fa-leaf text-4xl"></i></div>
+        <div class="floating-element absolute top-40 right-20 text-blue-300 opacity-20"><i class="fas fa-globe text-3xl"></i></div>
+        <div class="floating-element absolute bottom-40 left-20 text-purple-300 opacity-20"><i class="fas fa-brain text-3xl"></i></div>
+        <div class="floating-element absolute bottom-20 right-10 text-yellow-300 opacity-20"><i class="fas fa-star text-4xl"></i></div>
+        <div class="floating-element absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-indigo-300 opacity-10"><i class="fas fa-seedling text-6xl"></i></div>
+    </div>
+
+    <!-- Barra superior -->
+    <nav class="gradient-bg text-white p-4 relative z-10 shadow-lg">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="flex items-center space-x-4">
+                <i class="fas fa-seedling text-2xl"></i>
+                <h1 class="text-xl font-bold">Centro Pachamama – Benji</h1>
+                <div class="hidden md:block bg-green-500 px-3 py-1 rounded-full text-xs font-semibold">ACCESO LIBRE ✓</div>
+            </div>
+            <div class="flex items-center space-x-6">
+                <div class="flex items-center space-x-2 bg-white bg-opacity-20 px-3 py-1 rounded-full"><i class="fas fa-coins text-yellow-300"></i><span id="totalPoints">0</span></div>
+                <div class="flex items-center space-x-2 bg-white bg-opacity-20 px-3 py-1 rounded-full"><i class="fas fa-fire text-orange-400"></i><span id="dailyStreak">0</span></div>
+                <div class="flex items-center space-x-2 bg-white bg-opacity-20 px-3 py-1 rounded-full"><i class="fas fa-chart-line text-green-300"></i><span id="progressPercent">0%</span></div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Contenido principal -->
+    <main class="max-w-7xl mx-auto p-6 relative z-10">
+        <!-- HOME -->
+        <section id="homeSection" class="section">
+            <div class="welcome-banner text-white p-8 rounded-xl shadow-lg mb-8 text-center">
+                <h2 class="text-4xl font-bold mb-4">¡Bienvenido Benji!</h2>
+                <p class="text-xl mb-2">Tu centro de estudios personalizado está listo</p>
+                <p id="motivationalQuote" class="text-lg italic opacity-90"></p>
+                <div class="mt-4 bg-white bg-opacity-20 inline-block px-4 py-2 rounded-full"><span class="text-sm font-semibold">✨ Sin restricciones – Estudia cuando quieras ✨</span></div>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-6 mb-8">
+                <div class="bg-white rounded-xl shadow-lg p-6 text-center">
+                    <div class="relative w-32 h-32 mx-auto mb-4">
+                        <svg class="progress-ring w-32 h-32"><circle class="progress-ring-circle" cx="64" cy="64" r="45" stroke="#e5e7eb" stroke-width="8" fill="none"></circle>
+                        <circle id="progressCircle" class="progress-ring-circle" cx="64" cy="64" r="45" stroke="#10b981" stroke-width="8" fill="none"></circle></svg>
+                        <div class="absolute inset-0 flex items-center justify-center"><span id="progressText" class="text-2xl font-bold text-gray-800">0%</span></div>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-800">Progreso General</h3>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-lg p-6">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-4 flex items-center"><i class="fas fa-trophy text-yellow-500 mr-2"></i>Logros Recientes</h3>
+                    <div id="achievementsList" class="space-y-2 max-h-40 overflow-y-auto"><p class="text-gray-500 text-sm">Completa actividades para desbloquear logros</p></div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-lg p-6">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-4 flex items-center"><i class="fas fa-clock text-blue-500 mr-2"></i>Cronómetro Pomodoro</h3>
+                    <div class="text-center">
+                        <div id="timerDisplay" class="text-3xl font-bold text-gray-800 mb-4">25:00</div>
+                        <div class="flex justify-center space-x-2">
+                            <button id="startTimer" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg transition-all"><i class="fas fa-play"></i></button>
+                            <button id="pauseTimer" class="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-lg transition-all"><i class="fas fa-pause"></i></button>
+                            <button id="resetTimer" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg transition-all"><i class="fas fa-redo"></i></button>
+                        </div>
+                        <p id="timerMode" class="text-sm text-gray-600 mt-2">Modo: Estudio</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-6 mb-8">
+                <button onclick="showSection('math')" class="earth-gradient text-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105">
+                    <i class="fas fa-calculator text-4xl mb-4"></i>
+                    <h3 class="text-2xl font-semibold mb-2">Matemáticas</h3>
+                    <p>Problemas ecológicos y cálculos</p>
+                </button>
+                <button onclick="showSection('language')" class="bg-blue-600 hover:bg-blue-700 text-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105">
+                    <i class="fas fa-book-open text-4xl mb-4"></i>
+                    <h3 class="text-2xl font-semibold mb-2">Lengua</h3>
+                    <p>Comprensión lectora y escritura</p>
+                </button>
+                <button onclick="showSection('english')" class="bg-purple-600 hover:bg-purple-700 text-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105">
+                    <i class="fas fa-globe text-4xl mb-4"></i>
+                    <h3 class="text-2xl font-semibold mb-2">Inglés</h3>
+                    <p>Vocabulario ambiental</p>
+                </button>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-6 mb-8">
+                <div class="bg-white rounded-xl shadow-lg p-6">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-4 flex items-center"><i class="fas fa-sticky-note text-yellow-500 mr-2"></i>Notas Rápidas</h3>
+                    <textarea id="quickNotes" rows="4" class="w-full p-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" placeholder="Escribe tus ideas aquí..."></textarea>
+                    <button onclick="saveNotes()" class="mt-3 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-all"><i class="fas fa-save mr-2"></i>Guardar</button>
+                </div>
+                <div class="bg-white rounded-xl shadow-lg p-6">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-4 flex items-center"><i class="fas fa-chart-bar text-green-500 mr-2"></i>Estadísticas de Hoy</h3>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="text-center"><div id="todayPoints" class="text-2xl font-bold text-blue-600">0</div><p class="text-sm text-gray-600">Puntos Hoy</p></div>
+                        <div class="text-center"><div id="todayActivities" class="text-2xl font-bold text-green-600">0</div><p class="text-sm text-gray-600">Actividades</p></div>
+                    </div>
+                    <div class="mt-4 p-3 bg-gray-50 rounded-lg text-center"><p class="text-sm text-gray-600">Tiempo total de estudio hoy:</p><p class="font-semibold" id="todayStudyTime">0 min</p></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- MATH SECTION -->
+        <section id="mathSection" class="section hidden">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-3xl font-bold text-gray-800"><i class="fas fa-calculator text-green-600 mr-3"></i>Misión Matemática</h2>
+                <button onclick="showSection('home')" class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-lg transition-all"><i class="fas fa-home mr-2"></i>Inicio</button>
+            </div>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="bg-white rounded-xl shadow-lg p-6">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-4"><i class="fas fa-question-circle text-blue-600 mr-2"></i>Quiz Matemático Ecológico</h3>
+                    <div id="mathQuiz">
+                        <div id="mathQuestion" class="bg-gray-50 p-4 rounded-lg mb-4"></div>
+                        <div id="mathOptions" class="space-y-2 mb-4"></div>
+                        <button id="submitMathAnswer" class="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg w-full transition-all">Responder</button>
+                        <div id="mathResult" class="mt-4 p-4 rounded-lg hidden"></div>
+                    </div>
+                    <div class="mt-4 text-center">
+                        <p class="text-sm text-gray-600">Pregunta <span id="currentQuestion">1</span> de 5</p>
+                        <div class="w-full bg-gray-200 rounded-full h-2 mt-2"><div id="quizProgress" class="bg-green-600 h-2 rounded-full transition-all duration-300" style="width: 20%"></div></div>
+                    </div>
+                </div>
+                <div class="space-y-6">
+                    <div class="bg-white rounded-xl shadow-lg p-6">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-4"><i class="fas fa-chart-bar text-purple-600 mr-2"></i>Estadísticas</h3>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="text-center p-4 bg-green-50 rounded-lg"><div id="mathCorrect" class="text-3xl font-bold text-green-600">0</div><p class="text-sm text-gray-600">Correctas</p></div>
+                            <div class="text-center p-4 bg-blue-50 rounded-lg"><div id="mathTotal" class="text-3xl font-bold text-blue-600">0</div><p class="text-sm text-gray-600">Total</p></div>
+                        </div>
+                        <div class="mt-4 text-center"><div class="text-lg font-semibold text-purple-600" id="mathAccuracy">0%</div><p class="text-sm text-gray-600">Precisión</p></div>
+                    </div>
+                    <div class="bg-white rounded-xl shadow-lg p-6">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-4"><i class="fas fa-lightbulb text-yellow-500 mr-2"></i>Consejos de Estudio</h3>
+                        <div class="space-y-3 text-sm text-gray-600">
+                            <p>• Lee el problema completo antes de empezar</p>
+                            <p>• Identifica qué datos tienes y qué necesitas encontrar</p>
+                            <p>• Haz un dibujo si te ayuda a visualizar</p>
+                            <p>• Verifica tu respuesta</p>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-xl shadow-lg p-6">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-4"><i class="fas fa-external-link-alt text-indigo-600 mr-2"></i>Recursos Externos</h3>
+                        <div class="space-y-3">
+                            <a href="https://es.khanacademy.org/math" target="_blank" class="block bg-blue-50 hover:bg-blue-100 p-3 rounded-lg transition-colors"><i class="fas fa-graduation-cap text-blue-600 mr-2"></i>Khan Academy – Matemáticas</a>
+                            <a href="https://www.geogebra.org/" target="_blank" class="block bg-green-50 hover:bg-green-100 p-3 rounded-lg transition-colors"><i class="fas fa-shapes text-green-600 mr-2"></i>GeoGebra – Geometría</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- LANGUAGE SECTION -->
+        <section id="languageSection" class="section hidden">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-3xl font-bold text-gray-800"><i class="fas fa-book-open text-blue-600 mr-3"></i>Lengua Exploradora</h2>
+                <button onclick="showSection('home')" class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-lg transition-all"><i class="fas fa-home mr-2"></i>Inicio</button>
+            </div>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="bg-white rounded-xl shadow-lg p-6">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-4"><i class="fas fa-book text-green-600 mr-2"></i>Comprensión Lectora</h3>
+                    <div class="bg-gray-50 p-4 rounded-lg mb-4 max-h-64 overflow-y-auto">
+                        <h4 class="font-semibold mb-3">El Colegio Pachamama y la Sostenibilidad</h4>
+                        <p class="text-sm mb-3">El Colegio Pachamama es una institución educativa comprometida con la preservación del medio ambiente y el desarrollo sostenible. Nuestro enfoque pedagógico integra la conciencia ecológica en todas las materias, formando estudiantes responsables con su entorno.</p>
+                        <p class="text-sm mb-3">Los estudiantes participan activamente en proyectos de reciclaje, huertos escolares y campañas de conservación del agua. Además, el colegio utiliza energía solar y ha implementado sistemas de recolección de agua lluvia.</p>
+                        <p class="text-sm">La educación ambiental no se limita al aula; se extiende a la familia y la comunidad, creando una red de conciencia ecológica que trasciende los muros del colegio.</p>
+                    </div>
+                    <div class="space-y-3">
+                        <h4 class="font-semibold">Preguntas de Comprensión:</h4>
+                        <div id="comprehensionQuestions"></div>
+                        <button id="checkComprehension" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg w-full transition-all">Verificar Respuestas</button>
+                    </div>
+                </div>
+                <div class="space-y-6">
+                    <div class="bg-white rounded-xl shadow-lg p-6">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-4"><i class="fas fa-pen text-purple-600 mr-2"></i>Ejercicio de Escritura</h3>
+                        <p class="text-sm text-gray-600 mb-4 bg-blue-50 p-3 rounded-lg"><strong>Tarea:</strong> Escribe una carta formal proponiendo una iniciativa ambiental para tu colegio. Incluye saludo, introducción, propuesta, beneficios y despedida.</p>
+                        <textarea id="writingExercise" rows="8" class="w-full p-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" placeholder="Estimado/a Director/a..."></textarea>
+                        <div class="flex justify-between items-center mt-3">
+                            <span id="wordCount" class="text-sm text-gray-500">Palabras: 0</span>
+                            <button id="submitWriting" class="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg transition-all"><i class="fas fa-paper-plane mr-2"></i>Enviar Carta</button>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-xl shadow-lg p-6">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-4"><i class="fas fa-lightbulb text-yellow-500 mr-2"></i>Estructura de Carta Formal</h3>
+                        <div class="space-y-2 text-sm text-gray-600">
+                            <p><strong>1.</strong> Encabezado: Fecha y destinatario</p>
+                            <p><strong>2.</strong> Saludo: “Estimado/a Director/a”</p>
+                            <p><strong>3.</strong> Introducción: Presenta el problema</p>
+                            <p><strong>4.</strong> Desarrollo: Tu propuesta detallada</p>
+                            <p><strong>5.</strong> Beneficios: ¿Por qué es buena idea?</p>
+                            <p><strong>6.</strong> Despedida: “Atentamente” + tu nombre</p>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-xl shadow-lg p-6">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-4"><i class="fas fa-external-link-alt text-indigo-600 mr-2"></i>Recursos de Lengua</h3>
+                        <div class="space-y-3">
+                            <a href="https://dle.rae.es/" target="_blank" class="block bg-blue-50 hover:bg-blue-100 p-3 rounded-lg transition-colors"><i class="fas fa-book text-blue-600 mr-2"></i>RAE – Diccionario</a>
+                            <a href="https://cvc.cervantes.es/" target="_blank" class="block bg-green-50 hover:bg-green-100 p-3 rounded-lg transition-colors"><i class="fas fa-language text-green-600 mr-2"></i>Centro Virtual Cervantes</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ENGLISH SECTION -->
+        <section id="englishSection" class="section hidden">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-3xl font-bold text-gray-800"><i class="fas fa-globe text-purple-600 mr-3"></i>English Environmental Explorer</h2>
+                <button onclick="showSection('home')" class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-lg transition-all"><i class="fas fa-home mr-2"></i>Inicio</button>
+            </div>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="bg-white rounded-xl shadow-lg p-6">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-4"><i class="fas fa-leaf text-green-600 mr-2"></i>Environmental Vocabulary</h3>
+                    <div id="vocabularyList" class="space-y-3 max-h-64 overflow-y-auto mb-4"></div>
+                    <button id="studyVocab" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg w-full transition-all"><i class="fas fa-play mr-2"></i>Study Vocabulary</button>
+                </div>
+                <div class="space-y-6">
+                    <div class="bg-white rounded-xl shadow-lg p-6">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-4"><i class="fas fa-question-circle text-blue-600 mr-2"></i>Vocabulary Quiz</h3>
+                        <div id="englishQuiz">
+                            <div id="englishQuestion" class="bg-gray-50 p-4 rounded-lg mb-4"></div>
+                            <div id="englishOptions" class="space-y-2 mb-4"></div>
+                            <button id="submitEnglishAnswer" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg w-full transition-all">Answer</button>
+                            <div id="englishResult" class="mt-4 p-4 rounded-lg hidden"></div>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-xl shadow-lg p-6">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-4"><i class="fas fa-chart-line text-purple-600 mr-2"></i>English Progress</h3>
+                        <div class="text-center"><div class="text-3xl font-bold text-purple-600" id="englishScore">0</div><p class="text-sm text-gray-600 mb-3">Correct Answers</p>
+                        <div class="w-full bg-gray-200 rounded-full h-2"><div id="englishProgress" class="bg-purple-600 h-2 rounded-full transition-all duration-300" style="width: 0%"></div></div>
+                        <p class="text-xs text-gray-500 mt-1">Progress to English Expert</p></div>
+                    </div>
+                    <div class="bg-white rounded-xl shadow-lg p-6">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-4"><i class="fas fa-external-link-alt text-indigo-600 mr-2"></i>English Resources</h3>
+                        <div class="space-y-3">
+                            <a href="https://www.duolingo.com/" target="_blank" class="block bg-green-50 hover:bg-green-100 p-3 rounded-lg transition-colors"><i class="fas fa-graduation-cap text-green-600 mr-2"></i>Duolingo</a>
+                            <a href="https://www.bbc.co.uk/learningenglish/" target="_blank" class="block bg-red-50 hover:bg-red-100 p-3 rounded-lg transition-colors"><i class="fas fa-microphone text-red-600 mr-2"></i>BBC Learning English</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- AI Assistant -->
+    <button id="aiAssistantBtn" class="fixed bottom-6 right-6 bg-purple-600 hover:bg-purple-700 text-white p-4 rounded-full shadow-lg transition-all z-50 pulse-button"><i class="fas fa-robot text-xl"></i></button>
+
+    <div id="aiAssistantModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-xl shadow-2xl w-full max-w-2xl mx-4 max-h-96">
+            <div class="flex justify-between items-center p-6 border-b">
+                <h3 class="text-xl font-semibold text-gray-800"><i class="fas fa-robot text-purple-600 mr-2"></i>Asistente IA Pachamama</h3>
+                <button id="closeAI" class="text-gray-500 hover:text-gray-700"><i class="fas fa-times text-xl"></i></button>
+            </div>
+            <div id="chatContainer" class="p-6 max-h-64 overflow-y-auto">
+                <div class="chat-message bg-purple-100 p-3 rounded-lg mb-4"><p class="text-sm">¡Hola Benji! Soy tu asistente de estudio. ¿En qué materia necesitas ayuda?</p></div>
+            </div>
+            <div class="p-6 border-t">
+                <div class="flex space-x-2">
+                    <input type="text" id="chatInput" class="flex-1 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500" placeholder="Escribe tu pregunta...">
+                    <button id="sendMessage" class="bg-purple-600 hover:bg-purple-700 text-white px-6 py-3 rounded-lg transition-all"><i class="fas fa-paper-plane"></i></button>
+                </div>
+                <div class="flex flex-wrap gap-2 mt-3">
+                    <button class="ai-quick-btn bg-green-100 hover:bg-green-200 text-green-700 px-3 py-1 rounded-full text-sm transition-all" data-subject="math">Matemáticas</button>
+                    <button class="ai-quick-btn bg-blue-100 hover:bg-blue-200 text-blue-700 px-3 py-1 rounded-full text-sm transition-all" data-subject="language">Lengua</button>
+                    <button class="ai-quick-btn bg-purple-100 hover:bg-purple-200 text-purple-700 px-3 py-1 rounded-full text-sm transition-all" data-subject="english">Inglés</button>
+                    <button class="ai-quick-btn bg-yellow-100 hover:bg-yellow-200 text-yellow-700 px-3 py-1 rounded-full text-sm transition-all" data-subject="help">Ayuda General</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notifications -->
+    <div id="achievementNotification" class="fixed top-20 right-6 bg-yellow-500 text-white p-4 rounded-lg shadow-lg hidden z-50"><div class="flex items-center space-x-3"><i class="fas fa-trophy text-2xl"></i><div><h4 class="font-semibold">¡Logro Desbloqueado!</h4><p id="achievementText" class="text-sm"></p></div></div></div>
+    <div id="successMessage" class="fixed top-32 right-6 bg-green-500 text-white p-4 rounded-lg shadow-lg hidden z-50"><div class="flex items-center space-x-2"><i class="fas fa-check-circle"></i><span id="successText"></span></div></div>
+
+    <!-- Scripts -->
+    <script src="js/app.js"></script>
+</body>
+</html>
