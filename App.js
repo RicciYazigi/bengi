@@ -588,12 +588,12 @@ const PachamamaCenter = () => {
 
         <div className="bg-white rounded-xl p-6 shadow-lg">
           <h3 className="text-xl font-semibold text-gray-800 mb-4">Ejercicio de Escritura</h3>
-          <div
+          <textarea
             value={notes}
             onChange={(e) => setNotes(e.target.value)}
             placeholder="Escribe aquí tu carta de iniciativa ambiental..."
             className="w-full h-48 p-3 border border-gray-200 rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-green-500"
-          ></div>
+          ></textarea>
           <button
             onClick={() => {
               addPoints(40);
